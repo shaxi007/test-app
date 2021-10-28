@@ -1,33 +1,32 @@
-create table users(
-	user_id serial primary key,
-	user_name varchar(63) not null,
-	gender int not null,
-	contact bigint not null,
-	bot_user_id bigint not null,
-	status varchar(200),
-	birth int 
+CREATE TABLE products(
+	product_id  SERIAL PRIMARY KEY NOT NULL,
+	product_name VARCHAR(255) NOT NULL
 );
 
-create table real_users(
-	user_id serial primary key,
-	user_name varchar(63) not null,
-	gender int not null,
-	contact bigint not null,
-	bot_user_id bigint not null,
-	status varchar(200),
-	birth int 
+CREATE TABLE tags(
+	tag_id  SERIAL PRIMARY KEY NOT NULL,
+	tag_name VARCHAR(255) NOT NULL
 );
 
-create table questions(
-	question_title varchar(300) not null,
-	question_id serial primary key
+CREATE TABLE categories(
+	categorie_id  SERIAL PRIMARY KEY NOT NULL,
+	categorie_name VARCHAR(255) NOT NULL
 );
 
-create table questions_users(
-	question_id int references questions(question_id) on delete cascade,
-	bot_user_id bigint not null,
-	status varchar(200) not null
+CREATE TABLE product_tags(
+	id SERIAL PRIMARY KEY NOT NULL,
+	product_id INT REFERENCES products(product_id) ON DELETE CASCADE NOT NULL,
+	tag_id INT REFERENCES tags(tag_id) ON DELETE CASCADE NOT NULL
 );
 
+CREATE TABLE categories_products(
+	id SERIAL PRIMARY KEY NOT NULL,
+	product_id INT REFERENCES products(product_id) ON DELETE CASCADE NOT NULL,
+	categorie_id INT REFERENCES categories(categorie_id) ON DELETE CASCADE NOT NULL
+);
 
-
+CREATE TABLE categorie_categories(
+	id SERIAL PRIMARY KEY NOT NULL,
+	ct_id INT REFERENCES categories(categorie_id) ON DELETE CASCADE NOT NULL,
+	categorie_id INT REFERENCES categories(categorie_id) ON DELETE CASCADE NOT NULL
+);
